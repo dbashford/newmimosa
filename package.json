@@ -1,0 +1,35 @@
+{
+  "name": "newmimosa",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dbashford/newmimosa",
+  "author": "David Bashford",
+  "description": "Mimosa's scaffolding functionality/command, 'mimosa new'",
+  "contributors": [
+    {
+      "name": "David Bashford",
+      "email": "dbashford@hotmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dbashford/newmimosa"
+  },
+  "keywords": [
+    "mimosa",
+    "mmodule",
+    "scaffold",
+    "new"
+  ],
+  "dependencies": {
+    "wrench": "1.5.6",
+    "lodash": "2.4.1"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "main": "./lib/index",
+  "scripts": {
+    "prepublish": "mimosa build"
+  }
+}

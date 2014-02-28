@@ -1,0 +1,8 @@
+{
+  "name": "appname",
+  "version": "0.0.1",
+  "description": "A Mimosa starter skeleton",
+  "dependencies": {
+    "consolidate": "0.10.0"
+  }
+}
