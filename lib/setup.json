@@ -24,7 +24,7 @@
         "prettyName": "Iced CoffeeScript - http://maxtaco.github.com/coffee-script/",
         "name": "iced-coffeescript",
         "library": "iced-coffee-script",
-        "version": "1.6.3-j",
+        "version": "1.7.1-f",
         "defaultExtensions": [
           "iced"
         ]
