@@ -247,7 +247,7 @@ writeConfigs = ->
 
       process.chdir currentDir
 
-      logger.success "New project creation complete!  Execute 'mimosa watch' from inside your project to monitor the file system. Then start coding!"
+      logger.success "New project creation complete!  Execute 'mimosa watch' from inside your project's directory to monitor the file system. Then start coding!"
       process.stdin.destroy()
 
 prompting = ->
