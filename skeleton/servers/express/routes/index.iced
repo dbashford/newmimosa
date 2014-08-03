@@ -1,5 +1,7 @@
-index = (config) ->
+express = require 'express'
+router = express.Router()
 
+exports.index = (config) ->
   options =
     reload:    config.liveReload.enabled
     optimize:  config.isOptimize ? false
@@ -12,6 +14,7 @@ index = (config) ->
   else
     "index"
 
-  (req, res) -> res.render name, options
+  router.get '/', (req, res) ->
+    res.render name, options
 
-exports.index = index
+  router

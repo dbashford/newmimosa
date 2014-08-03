@@ -1,3 +1,6 @@
+var express = require('express');
+var router = express.Router();
+
 var index = function(config) {
   cachebust = ''
   if (process.env.NODE_ENV !== "production") {
@@ -17,9 +20,11 @@ var index = function(config) {
     name += "-optimize";
   }
 
-  return function(req, res) {
+  router.get('/', function(req, res) {
     res.render(name, options);
-  };
+  });
+
+  return router;
 };
 
-exports.index = index;
+exports.index = index

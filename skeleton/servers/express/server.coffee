@@ -1,32 +1,36 @@
 express = require 'express'
+bodyParser = require 'body-parser'
 engines = require 'consolidate'
-routes  = require './routes'
+compression = require 'compression'
+favicon = require 'serve-favicon'
+cookieParser = require 'cookie-parser'
+errorHandler = require 'errorhandler'
 
 exports.startServer = (config, callback) ->
-
-  port = process.env.PORT or config.server.port
-
   app = express()
-  server = app.listen port, ->
-    console.log "Express server listening on port %d in %s mode", server.address().port, app.settings.env
 
-  app.configure ->
-    app.set 'port', port
-    app.set 'views', config.server.views.path
-    app.engine config.server.views.extension, engines[config.server.views.compileWith]
-    app.set 'view engine', config.server.views.extension
-    app.use express.favicon()
-    app.use express.urlencoded()
-    app.use express.json()
-    app.use express.methodOverride()
-    app.use express.compress()
-    app.use config.server.base, app.router
-    app.use express.static(config.watch.compiledDir)
+  # setup views and port
+  app.set 'views', config.server.views.path
+  app.engine config.server.views.extension, engines[config.server.views.compileWith]
+  app.set 'view engine', config.server.views.extension
+  app.set 'port', process.env.PORT || config.server.port || 3000
 
-  app.configure 'development', ->
-    app.use express.errorHandler()
+  # middleware
+  app.use compression()
+  # uncomment and point path at favicon if you have one
+  # app.use favicon "path to fav icon"
+  app.use bodyParser.json()
+  app.use bodyParser.urlencoded {extended: true}
+  app.use cookieParser()
+  app.use express.static config.watch.compiledDir
+  if app.get('env') is 'development'
+    app.use errorHandler()
 
-  app.get '/', routes.index(config)
+  # routes
+  app.use '/', require('./routes/index').index(config)
 
-  callback(server)
+  # start it up
+  server = app.listen app.get('port'), ->
+    console.log 'Express server listening on port ' + server.address().port
 
+  callback server

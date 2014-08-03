@@ -194,10 +194,17 @@ setupPackageJSON = (chosen) ->
 
   # if using own server, then need to set node dependencies for views
   # server and language, otherwise have no depedencies
-  if chosen.server.library
+  if chosen.server.libraries
     [chosen.views, chosen.javascript, chosen.server].forEach (chosenItem) ->
+
+      # incldue those things that have a version
       if chosenItem.version
         packageJson.dependencies[chosenItem.library] = chosenItem.version
+
+      # include those things (like the server) that have entire sets
+      # of libraries
+      if chosenItem.libraries
+        packageJson.dependencies = _.extend(packageJson.dependencies, chosenItem.libraries)
   else
     delete packageJson.dependencies
 
