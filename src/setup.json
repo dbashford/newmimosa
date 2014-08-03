@@ -173,7 +173,7 @@
     },
     {
       "name":"ExpressSocketIO",
-      "prettyName":"Express w/socket.io- http://expressjs.com/ + http://socket.io/",
+      "prettyName":"Express w/socket.io - http://expressjs.com/ + http://socket.io/",
       "libraries": {
         "express": "4.7.2",
         "serve-favicon": "2.0.1",
