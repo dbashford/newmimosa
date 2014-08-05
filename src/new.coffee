@@ -89,7 +89,27 @@ makeChosenCompilerChanges = (chosenCompilers) ->
 
 usingOwnServer = (chosen) ->
   logger.debug "Moving server into place"
-  moveDirectoryContents(path.join(skeletonOutPath, "servers", chosen.server.name.toLowerCase()), skeletonOutPath)
+
+  serverInPath = path.join(skeletonOutPath, "servers", chosen.server.name.toLowerCase())
+
+  if chosen.server.templated
+    wrench.readdirSyncRecursive(serverInPath).map (p) ->
+      path.join(serverInPath, p)
+    .filter ( fullpath ) ->
+      fs.statSync(fullpath).isFile()
+    .map (fullpath) ->
+      templateText = fs.readFileSync(fullpath)
+      compiledTemplate = _.template(templateText)
+      context =
+        view: chosen.views.name
+      outText = compiledTemplate(context)
+
+      path: fullpath
+      text: outText
+    .forEach (fileData) ->
+      fs.writeFileSync fileData.path, fileData.text
+
+  moveDirectoryContents(serverInPath, skeletonOutPath)
   wrench.rmdirSyncRecursive path.join(skeletonOutPath, "servers")
 
 modifyBowerJSONName = ->
