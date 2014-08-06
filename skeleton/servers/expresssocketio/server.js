@@ -30,8 +30,29 @@ exports.startServer = function(config, callback) {
   }
 
   // routes
-  var index = require('./routes/index').index(config);
-  app.use('/', index);
+  cachebust = ''
+  if (process.env.NODE_ENV !== "production") {
+    cachebust = "?b=" + (new Date()).getTime()
+  }
+
+  var routeOptions = {
+    reload:    config.liveReload.enabled,
+    optimize:  config.isOptimize != null ? config.isOptimize : false,
+    cachebust: cachebust
+  };
+
+  var router = express.Router()
+  router.get('/', function(req, res) {
+    <% if (view !== "html") { %>res.render('index', routeOptions);
+    <% } else { %>
+    var name = "index";
+    if (config.isOptimize) {
+      name += "-optimize";
+    }
+    res.render(name, routeOptions);<% } %>
+  });
+
+  app.use('/', router);
 
   // start it up
   var server = app.listen(app.get('port'), function() {
