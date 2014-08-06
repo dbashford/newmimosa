@@ -26,8 +26,20 @@ exports.startServer = (config, callback) ->
   if app.get('env') is 'development'
     app.use errorHandler()
 
+  routeOptions =
+    reload:    config.liveReload.enabled
+    optimize:  config.isOptimize ? false
+    cachebust: if process.env.NODE_ENV !== "production" then "?b=#{(new Date()).getTime()}" else ''
+
+  router = express.Router()
+  router.get '/', (req, res) ->
+    <% if (view !== "html") { %>res.render 'index', routeOptions
+    <% } else { %>
+    name = if config.isOptimize then "index-optimize" else "index"
+    res.render name, routeOptions<% } %>
+
   # routes
-  app.use '/', require('./routes/index').index(config)
+  app.use '/', router
 
   # start it up
   server = app.listen app.get('port'), ->
