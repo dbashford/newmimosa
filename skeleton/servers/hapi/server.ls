@@ -36,7 +36,7 @@ exports.startServer = (config, callback) ->
     cachebust: if process.env.NODE_ENV isnt "production" then "?b=#{(new Date()).getTime()}" else ''
 
   # Default Route
-  server.route
+  server.route({
     method: 'GET'
     path: '/'
     handler: (req, reply) ->
@@ -44,14 +44,16 @@ exports.startServer = (config, callback) ->
       <% } else { %>
       name = if config.isOptimize then "index-optimize" else "index"
       reply.view name, routeOptions<% } %>
+  })
 
   # Statically load public assets
-  server.route
+  server.route({
     method: 'GET'
     path: '/{param*}'
     handler:
       directory:
         path: 'public'
+  })
 
   server.start ->
     console.log 'Server running at:', server.info.uri
