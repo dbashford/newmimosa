@@ -44,7 +44,7 @@ exports.startServer = (config, callback) ->
 
   # start it up
   server = app.listen app.get('port'), ->
-    console.log 'Express server listening on port ' + server.address().port
+    console.log 'Express server listening on port ' + app.get('port')
 
   io = socketio.listen server
 
