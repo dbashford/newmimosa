@@ -54,19 +54,6 @@ create = (chosen) ->
   logger.debug "Renaming .gitignore"
   fs.renameSync (path.join skeletonOutPath, ".ignore"), (path.join skeletonOutPath, ".gitignore")
 
-createWithDefaults = ->
-  chosen = {}
-  chosen.css =        (compilers.css.filter        (item) -> item.isDefault)[0]
-  chosen.javascript = (compilers.javascript.filter (item) -> item.isDefault)[0]
-  chosen.template =   (compilers.template.filter   (item) -> item.isDefault)[0]
-  chosen.server =     (servers.filter              (item) -> item.isDefault)[0]
-  chosen.views =      (views.filter                (item) -> item.isDefault)[0]
-
-  if logger.isDebug()
-    logger.debug "Chosen items :\n#{JSON.stringify(chosen, null, 2)}"
-
-  create(chosen)
-
 updateConfigForChosenCompilers = (comps) ->
   # return if all the defaults were chosen
   return if comps.javascript.isDefault and comps.views.isDefault
@@ -283,11 +270,8 @@ prompting = ->
 
   logger.green "\n  Mimosa will guide you through technology selection and project creation. For"
   logger.green "  all of the selections, if your favorite is not an option, you can add a"
-  logger.green "  GitHub issue and we'll look into adding it."
-
-  logger.green "\n  If you are unsure which options to pick, the ones with asterisks are Mimosa"
-  logger.green "  favorites. Feel free to hit the web to research your selections, Mimosa will"
-  logger.green "  be here when you get back."
+  logger.green "  GitHub issue and we'll look into adding it. Feel free to hit the web to"
+  logger.green "  research your selections, Mimosa will be here when you get back."
 
   logger.green "\n  To start, please choose your JavaScript transpiler: \n"
 
@@ -312,7 +296,6 @@ prompting = ->
             chosen.views = views[i]
             logger.green "\n  Creating and setting up your project... \n"
             create(chosen)
-
 
 isSystemPath = (str) ->
   windowsDrive.test(str) or str.indexOf("/") is 0
@@ -341,7 +324,4 @@ module.exports = (_program, _logger, name, opts) ->
       process.exit 0
     skeletonOutPath = outPath
 
-  if opts.defaults
-    createWithDefaults()
-  else
-    prompting()
+  prompting()

@@ -11,10 +11,6 @@ printHelp = ->
   logger.green('  If you wish to copy the project skeleton into your current directory instead of')
   logger.green('  into a new one leave off the name.')
   logger.blue( '\n    $ mimosa new\n')
-  logger.green('  If you are happy with the defaults (CoffeeScript, Stylus, Handlebars, Express, Jade),')
-  logger.green('  you can bypass the prompts by providing a \'defaults\' flag.')
-  logger.blue( '\n    $ mimosa new [name] --defaults')
-  logger.blue( '    $ mimosa new [name] -d\n')
 
 # need 3rd param so mimosa passes logger
 exports.registerCommand = (_program, _logger, noop) ->
@@ -23,7 +19,6 @@ exports.registerCommand = (_program, _logger, noop) ->
   program
     .command('new [name]')
     .description("create a skeleton matching Mimosa's defaults, which includes a basic Express setup")
-    .option("-d, --defaults",  "bypass prompts and go with Mimosa defaults (CoffeeScript, Stylus, Handlebars)")
     .option("-D, --mdebug", "run in debug mode")
     .action((name, opts) ->
       newProject = require("./new")

@@ -12,7 +12,7 @@
       },
       {
         "isDefault": true,
-        "prettyName": "(*) CoffeeScript - http://coffeescript.org/",
+        "prettyName": "CoffeeScript - http://coffeescript.org/",
         "name": "coffeescript",
         "library": "coffee-script",
         "version": "1.7.1",
@@ -77,7 +77,7 @@
       },
       {
         "isDefault": true,
-        "prettyName": "(*) Stylus - http://learnboost.github.com/stylus/",
+        "prettyName": "Stylus - http://learnboost.github.com/stylus/",
         "name": "stylus",
         "defaultExtensions": [
           "styl"
@@ -86,7 +86,7 @@
     ],
     "template": [
       {
-        "prettyName": "(*) Dust - https://github.com/linkedin/dustjs/",
+        "prettyName": "Dust - https://github.com/linkedin/dustjs/",
         "name": "dust",
         "defaultExtensions": ["dust"]
       },
@@ -102,7 +102,7 @@
       },
       {
         "isDefault": true,
-        "prettyName": "(*) Handlebars - http://handlebarsjs.com/",
+        "prettyName": "Handlebars - http://handlebarsjs.com/",
         "name": "handlebars",
         "defaultExtensions": ["hbs"]
       },
@@ -159,7 +159,7 @@
     },
     {
       "name":"Express",
-      "prettyName":"(*) Express - http://expressjs.com/",
+      "prettyName":"Express - http://expressjs.com/",
       "templated": true,
       "isDefault":true,
       "libraries": {
@@ -200,7 +200,7 @@
     {
       "name":"jade",
       "version": "1.5.0",
-      "prettyName":"(*) Jade - http://jade-lang.com/",
+      "prettyName":"Jade - http://jade-lang.com/",
       "library": "jade",
       "extension":"jade",
       "isDefault":true
