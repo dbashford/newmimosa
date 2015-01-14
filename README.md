@@ -5,7 +5,7 @@ This is a Mimosa module that comes with Mimosa. This module is responsible for t
 
 For details on Mimosa, see the [Mimosa website](http://mimosa.io/).
 
-# `mimosa new`
+## `mimosa new`
 
 One way to get started with Mimosa is to use it to create a new application/project structure. Execute `mimosa new` and pass it the name you would like to give to your project.
 
