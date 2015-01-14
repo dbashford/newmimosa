@@ -4,32 +4,35 @@ exports.startServer = (config, callback) ->
 
   port = process.env.PORT or config.server.port
 
-  serverOptions =
-    views:
-      path: config.server.views.path
-      engines:
-        <% if (view === "handlebars") { %>hbs: require('handlebars')
-        <% } else if (view === "jade") { %>jade: require('jade')
-        <% } else if (view === "ejs") { %>ejs: require('ejs')
-        <% } else if (view === "html") { %>html: require('ejs')
-        <% } else if (view === "hogan") { %>hjs:
-          module:
-            compile: (template, options) ->
-              engine = require('hogan.js')
-              tmpl = engine.compile(template, options)
-              (options) ->
-                tmpl.render(options, {})
-        <% } else if (view === "dust") { %>dust:
-          compileMode: 'async'
-          module:
-            compile: (template, options, next) ->
-              engine = require('dustjs-linkedin')
-              compiled = engine.compileFn(template)
-              next(null, (context, options, callback) ->
-                compiled(context, callback))<% } %>
-
-  server = new Hapi.Server 'localhost', port, serverOptions
-
+  server = new Hapi.Server()
+  server.connection(
+    host: 'localhost'
+    port: port
+  )
+  server.views(
+    path: config.server.views.path
+    engines:
+      <% if (view === "handlebars") { %>hbs: require('handlebars')
+      <% } else if (view === "jade") { %>jade: require('jade')
+      <% } else if (view === "ejs") { %>ejs: require('ejs')
+      <% } else if (view === "html") { %>html: require('ejs')
+      <% } else if (view === "hogan") { %>hjs:
+        module:
+          compile: (template, options) ->
+            engine = require('hogan.js')
+            tmpl = engine.compile(template, options)
+            (options) ->
+              tmpl.render(options, {})
+      <% } else if (view === "dust") { %>dust:
+        compileMode: 'async'
+        module:
+          compile: (template, options, next) ->
+            engine = require('dustjs-linkedin')
+            compiled = engine.compileFn(template)
+            next(null, (context, options, callback) ->
+              compiled(context, callback))<% } %>
+  )
+  
   routeOptions =
     reload:    config.liveReload.enabled
     optimize:  config.isOptimize ? false
