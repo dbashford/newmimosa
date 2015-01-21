@@ -1,0 +1,8 @@
+$, templates <- define <[jquery templates]>
+
+class ExampleView
+  render: !(element)->
+    ($ element)
+      &append(templates.example.render {name: 'Twig'})
+
+ExampleView

@@ -1,6 +1,6 @@
 {
   "name": "newmimosa",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "homepage": "https://github.com/dbashford/newmimosa",
   "author": "David Bashford",
   "description": "Mimosa's scaffolding functionality/command, 'mimosa new'",

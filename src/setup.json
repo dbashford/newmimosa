@@ -145,6 +145,11 @@
         "prettyName": "Underscore - http://underscorejs.org/#template",
         "name": "underscore",
         "defaultExtensions": ["tpl"]
+      },
+      {
+        "prettyName": "Twig - https://github.com/dbashford/mimosa-twig",
+        "name": "twig",
+        "defaultExtensions": ["twig", "twg"]
       }
     ]
   },
