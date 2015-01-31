@@ -188,6 +188,11 @@ makeServerChanges = (chosen) ->
   else
     usingOwnServer chosen
 
+  # signal to later in set up that transpiler needs to go in
+  if chosen.javascript.library
+    outConfig.server ?= {}
+    outConfig.server.transpiler = "TRANSPILER" + chosen.javascript.library
+
 setupPackageJSON = (chosen) ->
   logger.debug "Making package.json edits"
 
@@ -250,6 +255,10 @@ runNPMInstall = ->
 writeConfigs = ->
   configPath = path.join skeletonOutPath, "mimosa-config.js"
   outConfigText = "exports.config = " + JSON.stringify( outConfig, null, 2 )
+
+  # get transpiler require into config for server
+  if outConfig.server.transpiler
+    outConfigText = outConfigText.replace(/"TRANSPILER([A-Za-z\-]+)"/, "require(\"$1\")")
   fs.writeFile configPath, outConfigText, (err) ->
     currentDir = process.cwd()
     process.chdir skeletonOutPath
