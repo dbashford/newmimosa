@@ -259,19 +259,11 @@ writeConfigs = ->
   # get transpiler require into config for server
   if outConfig.server.transpiler
     outConfigText = outConfigText.replace(/"TRANSPILER([A-Za-z\-]+)"/, "require(\"$1\")")
+
+  # write the config file
   fs.writeFile configPath, outConfigText, (err) ->
-    currentDir = process.cwd()
-    process.chdir skeletonOutPath
-    exec "mimosa config --suppress", (err, sout, serr) ->
-      if err
-        logger.error err
-      else
-        console.log sout
-
-      process.chdir currentDir
-
-      logger.success "New project creation complete!  Execute 'mimosa watch' from inside your project's directory to monitor the file system. Then start coding!"
-      process.stdin.destroy()
+    logger.success "New project creation complete!  Execute 'mimosa watch' from inside your project's directory to monitor the file system. Then start coding!"
+    process.stdin.destroy()
 
 prompting = ->
   if logger.isDebug()
