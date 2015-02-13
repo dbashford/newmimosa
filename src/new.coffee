@@ -257,7 +257,7 @@ writeConfigs = ->
   outConfigText = "exports.config = " + JSON.stringify( outConfig, null, 2 )
 
   # get transpiler require into config for server
-  if outConfig.server.transpiler
+  if outConfig.server?.transpiler
     outConfigText = outConfigText.replace(/"TRANSPILER([A-Za-z\-]+)"/, "require(\"$1\")")
 
   # write the config file
