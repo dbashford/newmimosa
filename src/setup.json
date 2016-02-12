@@ -160,7 +160,7 @@
     },
     {
       "name":"Mimosa's Express",
-      "prettyName":"Mimosa's Embedded Server - http://mimosa.io/server.html#mimosas, this is less powerful than having your own, but may be sufficient for trivial websites."
+      "prettyName":"Mimosa's Embedded Server - https://github.com/dbashford/mimosa-server, this is less powerful than having your own, but may be sufficient for trivial websites."
     },
     {
       "name":"Express",
